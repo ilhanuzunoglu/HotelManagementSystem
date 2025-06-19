@@ -3,13 +3,11 @@
 #define LOGINFORM_H
 
 #include <QWidget>
+#include "database.h"
 
 namespace Ui { class LoginForm; }
 
 class MainWindow;
-class UserDashboard;
-class ReceptionistDashboard;
-class AdminDashboard;
 
 class LoginForm : public QWidget
 {
@@ -17,6 +15,12 @@ class LoginForm : public QWidget
 public:
     explicit LoginForm(QWidget *parent = nullptr);
     ~LoginForm();
+    void setMainWindow(MainWindow* mw);
+
+signals:
+    void loginSuccess(const User& user);
+    void registerLinkClicked();
+    void backClicked();
 
 private slots:
     void on_loginButton_clicked();
@@ -26,9 +30,6 @@ private slots:
 private:
     Ui::LoginForm *ui;
     MainWindow* mainWindow;
-    UserDashboard* userDashboard;
-    ReceptionistDashboard* receptionistDashboard;
-    AdminDashboard* adminDashboard;
 };
 
 #endif // LOGINFORM_H 

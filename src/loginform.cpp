@@ -9,7 +9,7 @@
 #include <QMessageBox>
 
 LoginForm::LoginForm(QWidget *parent)
-    : QWidget(parent), ui(new Ui::LoginForm), mainWindow(nullptr), userDashboard(nullptr), receptionistDashboard(nullptr), adminDashboard(nullptr)
+    : QWidget(parent), ui(new Ui::LoginForm), mainWindow(nullptr)
 {
     ui->setupUi(this);
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginForm::on_loginButton_clicked);
@@ -19,24 +19,17 @@ LoginForm::LoginForm(QWidget *parent)
 
 LoginForm::~LoginForm() { delete ui; }
 
+void LoginForm::setMainWindow(MainWindow* mw) { mainWindow = mw; }
+
 void LoginForm::on_loginButton_clicked()
 {
     QString username = ui->usernameLineEdit->text().trimmed();
     QString password = ui->passwordLineEdit->text();
-    QString role;
-    if (Database::instance().authenticateUser(username, password, role)) {
-        if (role == "user") {
-            if (!userDashboard) userDashboard = new UserDashboard(this);
-            userDashboard->show();
-        } else if (role == "receptionist") {
-            if (!receptionistDashboard) receptionistDashboard = new ReceptionistDashboard(this);
-            receptionistDashboard->show();
-        } else if (role == "admin") {
-            if (!adminDashboard) adminDashboard = new AdminDashboard(this);
-            adminDashboard->show();
-        }
-        this->hide();
+    User user = Database::instance().authenticateUser(username, password);
+    if (!user.username.isEmpty()) {
+        emit loginSuccess(user);
         ui->errorLabel->clear();
+        this->hide();
     } else {
         ui->errorLabel->setText("Kullanıcı adı veya şifre hatalı!");
     }
@@ -44,18 +37,10 @@ void LoginForm::on_loginButton_clicked()
 
 void LoginForm::on_registerLinkButton_clicked()
 {
-    if (!mainWindow) mainWindow = qobject_cast<MainWindow*>(parentWidget());
-    if (mainWindow) {
-        mainWindow->on_registerButton_clicked();
-        this->hide();
-    }
+    emit registerLinkClicked();
 }
 
 void LoginForm::on_backButton_clicked()
 {
-    if (!mainWindow) mainWindow = qobject_cast<MainWindow*>(parentWidget());
-    if (mainWindow) {
-        mainWindow->show();
-        this->hide();
-    }
+    emit backClicked();
 } 

@@ -3,6 +3,7 @@
 #define REGISTERFORM_H
 
 #include <QWidget>
+#include "database.h"
 
 namespace Ui { class RegisterForm; }
 
@@ -15,6 +16,11 @@ class RegisterForm : public QWidget
 public:
     explicit RegisterForm(QWidget *parent = nullptr);
     ~RegisterForm();
+    void setMainWindow(MainWindow* mw);
+
+signals:
+    void registerSuccess(const User& user);
+    void backClicked();
 
 private slots:
     void on_registerButton_clicked();

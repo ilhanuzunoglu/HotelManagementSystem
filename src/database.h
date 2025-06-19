@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMap>
 #include <QStringList>
+#include <QSqlDatabase>
 
 struct User {
     QString name;
@@ -18,13 +19,13 @@ struct User {
 class Database {
 public:
     static Database& instance();
-    bool authenticateUser(const QString& username, const QString& password, QString& role);
+    User authenticateUser(const QString& username, const QString& password);
     bool registerUser(const QString& name, const QString& surname, const QString& username, const QString& email, const QString& password, QString& errorMsg);
-    void loadUsers();
     User getUser(const QString& username);
+    void ensureTablesAndDefaults();
 private:
     Database();
-    QMap<QString, User> users;
+    QSqlDatabase db;
 };
 
 #endif // DATABASE_H 

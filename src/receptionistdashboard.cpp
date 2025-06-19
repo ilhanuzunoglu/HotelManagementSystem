@@ -12,11 +12,13 @@ ReceptionistDashboard::ReceptionistDashboard(QWidget *parent)
 
 ReceptionistDashboard::~ReceptionistDashboard() { delete ui; }
 
+void ReceptionistDashboard::setUser(const User& user)
+{
+    currentUser = user;
+    ui->welcomeLabel->setText("Hoş Geldiniz, " + user.username);
+}
+
 void ReceptionistDashboard::on_logoutButton_clicked()
 {
-    if (!mainWindow) mainWindow = qobject_cast<MainWindow*>(parentWidget());
-    if (mainWindow) {
-        mainWindow->show();
-        this->hide();
-    }
+    emit logoutClicked();
 } 

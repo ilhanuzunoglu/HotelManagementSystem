@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
-    <height>600</height>
+    <width>340</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>30</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -33,7 +33,7 @@
       <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="styleSheet">
-      <string>background-color: #F5F7FA; border-radius: 24px; border: 1px solid #B2BABB; padding: 32px;</string>
+      <string>background-color: #F5F7FA; border-radius: 18px; border: 1px solid #B2BABB; padding: 18px;</string>
      </property>
      <layout class="QVBoxLayout" name="frameLayout">
       <item>
@@ -45,7 +45,7 @@
          <set>Qt::AlignHCenter|Qt::AlignVCenter</set>
         </property>
         <property name="styleSheet">
-         <string>font-size: 24px; font-weight: bold; color: #2E4053; margin-bottom: 24px;</string>
+         <string>font-size: 20px; font-weight: bold; color: #2E4053; margin-bottom: 16px;</string>
         </property>
        </widget>
       </item>
@@ -55,7 +55,7 @@
          <string>Ad</string>
         </property>
         <property name="styleSheet">
-         <string>padding-left: 16px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 12px;</string>
+         <string>padding-left: 8px; height: 26px; border-radius: 8px; border: 1px solid #B2BABB; font-size: 14px; margin-bottom: 8px;</string>
         </property>
        </widget>
       </item>
@@ -65,7 +65,7 @@
          <string>Soyad</string>
         </property>
         <property name="styleSheet">
-         <string>padding-left: 16px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 12px;</string>
+         <string>padding-left: 8px; height: 26px; border-radius: 8px; border: 1px solid #B2BABB; font-size: 14px; margin-bottom: 8px;</string>
         </property>
        </widget>
       </item>
@@ -75,7 +75,7 @@
          <string>Kullanıcı Adı</string>
         </property>
         <property name="styleSheet">
-         <string>padding-left: 16px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 12px;</string>
+         <string>padding-left: 8px; height: 26px; border-radius: 8px; border: 1px solid #B2BABB; font-size: 14px; margin-bottom: 8px;</string>
         </property>
        </widget>
       </item>
@@ -85,7 +85,7 @@
          <string>E-posta</string>
         </property>
         <property name="styleSheet">
-         <string>padding-left: 16px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 12px;</string>
+         <string>padding-left: 8px; height: 26px; border-radius: 8px; border: 1px solid #B2BABB; font-size: 14px; margin-bottom: 8px;</string>
         </property>
        </widget>
       </item>
@@ -98,7 +98,7 @@
          <enum>QLineEdit::Password</enum>
         </property>
         <property name="styleSheet">
-         <string>padding-left: 16px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 12px;</string>
+         <string>padding-left: 8px; height: 26px; border-radius: 8px; border: 1px solid #B2BABB; font-size: 14px; margin-bottom: 8px;</string>
         </property>
        </widget>
       </item>
@@ -111,7 +111,7 @@
          <enum>QLineEdit::Password</enum>
         </property>
         <property name="styleSheet">
-         <string>padding-left: 16px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 12px;</string>
+         <string>padding-left: 8px; height: 26px; border-radius: 8px; border: 1px solid #B2BABB; font-size: 14px; margin-bottom: 8px;</string>
         </property>
        </widget>
       </item>
@@ -121,7 +121,7 @@
          <string></string>
         </property>
         <property name="styleSheet">
-         <string>color: #E74C3C; font-size: 14px; margin-bottom: 8px;</string>
+         <string>color: #E74C3C; font-size: 12px; margin-bottom: 6px;</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignHCenter|Qt::AlignVCenter</set>
@@ -134,7 +134,7 @@
          <string>Kayıt Ol</string>
         </property>
         <property name="styleSheet">
-         <string>QPushButton { background-color: #27AE60; color: white; border-radius: 16px; padding: 10px 0; font-size: 16px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+         <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 8px 0; font-size: 15px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
         </property>
        </widget>
       </item>
@@ -144,7 +144,7 @@
          <string>Geri Dön</string>
         </property>
         <property name="styleSheet">
-         <string>QPushButton { background-color: #B2BABB; color: #2E4053; border-radius: 12px; padding: 8px 0; font-size: 14px; margin-top: 12px; } QPushButton:hover { background-color: #85929E; }</string>
+         <string>QPushButton { background-color: #B2BABB; color: #2E4053; border-radius: 8px; padding: 6px 0; font-size: 13px; margin-top: 8px; } QPushButton:hover { background-color: #85929E; }</string>
         </property>
        </widget>
       </item>
@@ -159,7 +159,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>30</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>

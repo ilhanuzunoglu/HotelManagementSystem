@@ -12,11 +12,13 @@ AdminDashboard::AdminDashboard(QWidget *parent)
 
 AdminDashboard::~AdminDashboard() { delete ui; }
 
+void AdminDashboard::setUser(const User& user)
+{
+    currentUser = user;
+    ui->welcomeLabel->setText("Hoş Geldiniz, " + user.username);
+}
+
 void AdminDashboard::on_logoutButton_clicked()
 {
-    if (!mainWindow) mainWindow = qobject_cast<MainWindow*>(parentWidget());
-    if (mainWindow) {
-        mainWindow->show();
-        this->hide();
-    }
+    emit logoutClicked();
 } 

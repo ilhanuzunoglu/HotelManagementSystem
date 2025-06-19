@@ -12,11 +12,13 @@ UserDashboard::UserDashboard(QWidget *parent)
 
 UserDashboard::~UserDashboard() { delete ui; }
 
+void UserDashboard::setUser(const User& user)
+{
+    currentUser = user;
+    ui->welcomeLabel->setText("Hoş Geldiniz, " + user.username);
+}
+
 void UserDashboard::on_logoutButton_clicked()
 {
-    if (!mainWindow) mainWindow = qobject_cast<MainWindow*>(parentWidget());
-    if (mainWindow) {
-        mainWindow->show();
-        this->hide();
-    }
+    emit logoutClicked();
 } 

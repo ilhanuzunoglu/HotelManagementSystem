@@ -6,7 +6,7 @@
 #include "loginform.h"
 
 RegisterForm::RegisterForm(QWidget *parent)
-    : QWidget(parent), ui(new Ui::RegisterForm), mainWindow(nullptr), loginForm(nullptr)
+    : QWidget(parent), ui(new Ui::RegisterForm), mainWindow(nullptr)
 {
     ui->setupUi(this);
     connect(ui->registerButton, &QPushButton::clicked, this, &RegisterForm::on_registerButton_clicked);
@@ -14,6 +14,8 @@ RegisterForm::RegisterForm(QWidget *parent)
 }
 
 RegisterForm::~RegisterForm() { delete ui; }
+
+void RegisterForm::setMainWindow(MainWindow* mw) { mainWindow = mw; }
 
 void RegisterForm::on_registerButton_clicked()
 {
@@ -33,11 +35,10 @@ void RegisterForm::on_registerButton_clicked()
         return;
     }
     if (Database::instance().registerUser(name, surname, username, email, password, errorMsg)) {
+        User user = Database::instance().getUser(username);
+        emit registerSuccess(user);
         ui->errorLabel->setStyleSheet("color: #27AE60;");
         ui->errorLabel->setText("Kayıt başarılı! Giriş yapabilirsiniz.");
-        if (!loginForm) loginForm = new LoginForm(this);
-        loginForm->show();
-        this->hide();
     } else {
         ui->errorLabel->setStyleSheet("color: #E74C3C;");
         ui->errorLabel->setText(errorMsg);
@@ -46,9 +47,5 @@ void RegisterForm::on_registerButton_clicked()
 
 void RegisterForm::on_backButton_clicked()
 {
-    if (!mainWindow) mainWindow = qobject_cast<MainWindow*>(parentWidget());
-    if (mainWindow) {
-        mainWindow->show();
-        this->hide();
-    }
+    emit backClicked();
 } 

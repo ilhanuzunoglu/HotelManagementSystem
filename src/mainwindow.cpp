@@ -2,16 +2,19 @@
 #include "ui_mainwindow.h"
 #include "loginform.h"
 #include "registerform.h"
+#include "userdashboard.h"
+#include "receptionistdashboard.h"
+#include "admindashboard.h"
 #include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), loginForm(nullptr), registerForm(nullptr)
+    : QMainWindow(parent), ui(new Ui::MainWindow),
+      loginForm(nullptr), registerForm(nullptr),
+      userDashboard(nullptr), receptionistDashboard(nullptr), adminDashboard(nullptr)
 {
     ui->setupUi(this);
-    if (ui->loginButton)
-        connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::on_loginButton_clicked);
-    if (ui->registerButton)
-        connect(ui->registerButton, &QPushButton::clicked, this, &MainWindow::on_registerButton_clicked);
+    connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::on_loginButton_clicked);
+    connect(ui->registerButton, &QPushButton::clicked, this, &MainWindow::on_registerButton_clicked);
 }
 
 MainWindow::~MainWindow()
@@ -21,14 +24,86 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loginButton_clicked()
 {
-    if (!loginForm) loginForm = new LoginForm(this);
-    loginForm->show();
-    this->hide();
+    showLoginForm();
 }
 
 void MainWindow::on_registerButton_clicked()
 {
-    if (!registerForm) registerForm = new RegisterForm(this);
-    registerForm->show();
+    showRegisterForm();
+}
+
+void MainWindow::showLoginForm()
+{
+    if (!loginForm) {
+        loginForm = new LoginForm(nullptr);
+        loginForm->setMainWindow(this);
+        connect(loginForm, &LoginForm::loginSuccess, this, &MainWindow::handleLoginSuccess);
+        connect(loginForm, &LoginForm::registerLinkClicked, this, &MainWindow::showRegisterForm);
+        connect(loginForm, &LoginForm::backClicked, this, &MainWindow::handleBackToMain);
+    }
+    loginForm->show();
     this->hide();
+}
+
+void MainWindow::showRegisterForm()
+{
+    if (!registerForm) {
+        registerForm = new RegisterForm(nullptr);
+        registerForm->setMainWindow(this);
+        connect(registerForm, &RegisterForm::registerSuccess, this, &MainWindow::handleRegisterSuccess);
+        connect(registerForm, &RegisterForm::backClicked, this, &MainWindow::handleBackToMain);
+    }
+    registerForm->show();
+    if (loginForm) loginForm->hide();
+    this->hide();
+}
+
+void MainWindow::handleLoginSuccess(const User& user)
+{
+    currentUser = user;
+    if (loginForm) loginForm->hide();
+    if (user.role == "user") {
+        if (!userDashboard) {
+            userDashboard = new UserDashboard(nullptr);
+            connect(userDashboard, &UserDashboard::logoutClicked, this, &MainWindow::handleLogout);
+        }
+        userDashboard->setUser(user);
+        userDashboard->show();
+    } else if (user.role == "receptionist") {
+        if (!receptionistDashboard) {
+            receptionistDashboard = new ReceptionistDashboard(nullptr);
+            connect(receptionistDashboard, &ReceptionistDashboard::logoutClicked, this, &MainWindow::handleLogout);
+        }
+        receptionistDashboard->setUser(user);
+        receptionistDashboard->show();
+    } else if (user.role == "admin") {
+        if (!adminDashboard) {
+            adminDashboard = new AdminDashboard(nullptr);
+            connect(adminDashboard, &AdminDashboard::logoutClicked, this, &MainWindow::handleLogout);
+        }
+        adminDashboard->setUser(user);
+        adminDashboard->show();
+    }
+}
+
+void MainWindow::handleRegisterSuccess(const User& user)
+{
+    (void)user;
+    if (registerForm) registerForm->hide();
+    showLoginForm();
+}
+
+void MainWindow::handleLogout()
+{
+    if (userDashboard) userDashboard->hide();
+    if (receptionistDashboard) receptionistDashboard->hide();
+    if (adminDashboard) adminDashboard->hide();
+    this->show();
+}
+
+void MainWindow::handleBackToMain()
+{
+    if (loginForm) loginForm->hide();
+    if (registerForm) registerForm->hide();
+    this->show();
 } 
