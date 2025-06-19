@@ -146,34 +146,32 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="reservationButtonLayout">
+        <layout class="QHBoxLayout" name="reservationActionButtonLayout">
          <item>
-          <widget class="QPushButton" name="addReservationButton">
+          <widget class="QPushButton" name="approveReservationButton">
            <property name="text">
-            <string>Yeni Rezervasyon</string>
-           </property>
-           <property name="styleSheet">
-            <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+            <string>Onayla</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="editReservationButton">
+          <widget class="QPushButton" name="checkInButton">
            <property name="text">
-            <string>Düzenle</string>
-           </property>
-           <property name="styleSheet">
-            <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+            <string>Check-in</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="deleteReservationButton">
+          <widget class="QPushButton" name="checkOutButton">
            <property name="text">
-            <string>Sil</string>
+            <string>Check-out</string>
            </property>
-           <property name="styleSheet">
-            <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cancelReservationButton">
+           <property name="text">
+            <string>İptal Et</string>
            </property>
           </widget>
          </item>

@@ -73,6 +73,11 @@ void MainWindow::handleLoginSuccess(const User& user)
         if (!receptionistDashboard) {
             receptionistDashboard = new ReceptionistDashboard(nullptr);
             connect(receptionistDashboard, &ReceptionistDashboard::logoutClicked, this, &MainWindow::handleLogout);
+            connect(receptionistDashboard->findChild<QTabWidget*>("tabWidget"), &QTabWidget::currentChanged, [=](int idx){
+                if (idx == 1) receptionistDashboard->on_guestManagementTab_selected();
+                else if (idx == 2) receptionistDashboard->on_reservationTable_itemSelectionChanged();
+                else if (idx == 3) receptionistDashboard->on_roomStatusTab_selected();
+            });
         }
         receptionistDashboard->setUser(user);
         receptionistDashboard->show();
@@ -80,6 +85,10 @@ void MainWindow::handleLoginSuccess(const User& user)
         if (!adminDashboard) {
             adminDashboard = new AdminDashboard(nullptr);
             connect(adminDashboard, &AdminDashboard::logoutClicked, this, &MainWindow::handleLogout);
+            connect(adminDashboard->findChild<QTabWidget*>("tabWidget"), &QTabWidget::currentChanged, [=](int idx){
+                if (idx == 0) adminDashboard->on_userTab_selected();
+                else if (idx == 1) adminDashboard->on_roomTab_selected();
+            });
         }
         adminDashboard->setUser(user);
         adminDashboard->show();

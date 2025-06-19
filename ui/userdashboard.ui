@@ -16,11 +16,11 @@
   <layout class="QVBoxLayout" name="mainLayout">
    <item>
     <widget class="QLabel" name="welcomeLabel">
-     <property name="text">
-      <string>Hoş Geldiniz, [Kullanıcı Adı]</string>
-     </property>
      <property name="styleSheet">
       <string>font-size: 20px; font-weight: bold; color: #2E4053; margin: 16px 0 8px 16px;</string>
+     </property>
+     <property name="text">
+      <string>Hoş Geldiniz, [Kullanıcı Adı]</string>
      </property>
     </widget>
    </item>
@@ -28,6 +28,9 @@
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
       <string>QTabBar::tab { min-width: 120px; min-height: 32px; font-size: 15px; border-radius: 8px; padding: 8px; } QTabBar::tab:selected { background: #2980B9; color: white; } QTabBar::tab:!selected { background: #F5F7FA; color: #2E4053; }</string>
+     </property>
+     <property name="currentIndex">
+      <number>2</number>
      </property>
      <widget class="QWidget" name="profileTab">
       <attribute name="title">
@@ -76,11 +79,11 @@
        </item>
        <item row="4" column="1">
         <widget class="QPushButton" name="updateProfileButton">
-         <property name="text">
-          <string>Güncelle</string>
-         </property>
          <property name="styleSheet">
           <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+         </property>
+         <property name="text">
+          <string>Güncelle</string>
          </property>
         </widget>
        </item>
@@ -93,11 +96,11 @@
       <layout class="QVBoxLayout" name="reservationsLayout">
        <item>
         <widget class="QTableWidget" name="reservationsTable">
-         <property name="columnCount">
-          <number>4</number>
-         </property>
          <property name="rowCount">
           <number>0</number>
+         </property>
+         <property name="columnCount">
+          <number>4</number>
          </property>
          <column>
           <property name="text">
@@ -139,41 +142,51 @@
         <widget class="QComboBox" name="roomTypeComboBox"/>
        </item>
        <item row="1" column="0">
+        <widget class="QLabel" name="roomNumberLabel">
+         <property name="text">
+          <string>Oda Numarası:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="roomNumberComboBox"/>
+       </item>
+       <item row="2" column="0">
         <widget class="QLabel" name="checkInLabel">
          <property name="text">
           <string>Giriş Tarihi:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <widget class="QDateEdit" name="checkInDateEdit">
          <property name="calendarPopup">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="checkOutLabel">
          <property name="text">
           <string>Çıkış Tarihi:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <widget class="QDateEdit" name="checkOutDateEdit">
          <property name="calendarPopup">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="guestCountLabel">
          <property name="text">
           <string>Kişi Sayısı:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QSpinBox" name="guestCountSpinBox">
          <property name="minimum">
           <number>1</number>
@@ -183,13 +196,13 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="5" column="1">
         <widget class="QPushButton" name="createReservationButton">
-         <property name="text">
-          <string>Rezervasyon Yap</string>
-         </property>
          <property name="styleSheet">
           <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+         </property>
+         <property name="text">
+          <string>Rezervasyon Yap</string>
          </property>
         </widget>
        </item>
@@ -202,15 +215,15 @@
       <layout class="QVBoxLayout" name="contactLayout">
        <item>
         <widget class="QLabel" name="contactInfoLabel">
+         <property name="styleSheet">
+          <string>font-size: 15px; color: #34495E; margin: 32px;</string>
+         </property>
          <property name="text">
           <string>Otel ile iletişim için: 0123 456 78 90
 info@grandhotel.com</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignHCenter|Qt::AlignVCenter</set>
-         </property>
-         <property name="styleSheet">
-          <string>font-size: 15px; color: #34495E; margin: 32px;</string>
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -220,11 +233,11 @@ info@grandhotel.com</string>
    </item>
    <item>
     <widget class="QPushButton" name="logoutButton">
-     <property name="text">
-      <string>Çıkış Yap</string>
-     </property>
      <property name="styleSheet">
       <string>QPushButton { background-color: #B2BABB; color: #2E4053; border-radius: 12px; padding: 8px 0; font-size: 14px; margin: 16px 0 0 0; } QPushButton:hover { background-color: #85929E; }</string>
+     </property>
+     <property name="text">
+      <string>Çıkış Yap</string>
      </property>
     </widget>
    </item>
@@ -232,4 +245,4 @@ info@grandhotel.com</string>
  </widget>
  <resources/>
  <connections/>
-</ui> 
+</ui>

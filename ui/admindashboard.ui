@@ -16,11 +16,11 @@
   <layout class="QVBoxLayout" name="mainLayout">
    <item>
     <widget class="QLabel" name="welcomeLabel">
-     <property name="text">
-      <string>Hoş Geldiniz, [Admin Adı]</string>
-     </property>
      <property name="styleSheet">
       <string>font-size: 20px; font-weight: bold; color: #2E4053; margin: 16px 0 8px 16px;</string>
+     </property>
+     <property name="text">
+      <string>Hoş Geldiniz, [Admin Adı]</string>
      </property>
     </widget>
    </item>
@@ -29,6 +29,9 @@
      <property name="styleSheet">
       <string>QTabBar::tab { min-width: 160px; min-height: 32px; font-size: 15px; border-radius: 8px; padding: 8px; } QTabBar::tab:selected { background: #2980B9; color: white; } QTabBar::tab:!selected { background: #F5F7FA; color: #2E4053; }</string>
      </property>
+     <property name="currentIndex">
+      <number>2</number>
+     </property>
      <widget class="QWidget" name="userManagementTab">
       <attribute name="title">
        <string>Kullanıcı Yönetimi</string>
@@ -36,11 +39,11 @@
       <layout class="QVBoxLayout" name="userLayout">
        <item>
         <widget class="QTableWidget" name="userTable">
-         <property name="columnCount">
-          <number>5</number>
-         </property>
          <property name="rowCount">
           <number>0</number>
+         </property>
+         <property name="columnCount">
+          <number>5</number>
          </property>
          <column>
           <property name="text">
@@ -73,31 +76,31 @@
         <layout class="QHBoxLayout" name="userButtonLayout">
          <item>
           <widget class="QPushButton" name="addUserButton">
-           <property name="text">
-            <string>Kullanıcı Ekle</string>
-           </property>
            <property name="styleSheet">
             <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+           </property>
+           <property name="text">
+            <string>Kullanıcı Ekle</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="editUserButton">
-           <property name="text">
-            <string>Düzenle</string>
-           </property>
            <property name="styleSheet">
             <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+           </property>
+           <property name="text">
+            <string>Düzenle</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="deleteUserButton">
-           <property name="text">
-            <string>Sil</string>
-           </property>
            <property name="styleSheet">
             <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+           </property>
+           <property name="text">
+            <string>Sil</string>
            </property>
           </widget>
          </item>
@@ -112,11 +115,11 @@
       <layout class="QVBoxLayout" name="roomLayout">
        <item>
         <widget class="QTableWidget" name="roomTable">
-         <property name="columnCount">
-          <number>4</number>
-         </property>
          <property name="rowCount">
           <number>0</number>
+         </property>
+         <property name="columnCount">
+          <number>4</number>
          </property>
          <column>
           <property name="text">
@@ -144,31 +147,31 @@
         <layout class="QHBoxLayout" name="roomButtonLayout">
          <item>
           <widget class="QPushButton" name="addRoomButton">
-           <property name="text">
-            <string>Oda Ekle</string>
-           </property>
            <property name="styleSheet">
             <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+           </property>
+           <property name="text">
+            <string>Oda Ekle</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="editRoomButton">
-           <property name="text">
-            <string>Düzenle</string>
-           </property>
            <property name="styleSheet">
             <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+           </property>
+           <property name="text">
+            <string>Düzenle</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="deleteRoomButton">
-           <property name="text">
-            <string>Sil</string>
-           </property>
            <property name="styleSheet">
             <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+           </property>
+           <property name="text">
+            <string>Sil</string>
            </property>
           </widget>
          </item>
@@ -183,11 +186,11 @@
       <layout class="QVBoxLayout" name="pricingLayout">
        <item>
         <widget class="QTableWidget" name="pricingTable">
-         <property name="columnCount">
-          <number>3</number>
-         </property>
          <property name="rowCount">
           <number>0</number>
+         </property>
+         <property name="columnCount">
+          <number>3</number>
          </property>
          <column>
           <property name="text">
@@ -209,32 +212,32 @@
        <item>
         <layout class="QHBoxLayout" name="pricingButtonLayout">
          <item>
-          <widget class="QPushButton" name="addPricingButton">
-           <property name="text">
-            <string>Fiyat Ekle</string>
-           </property>
+          <widget class="QPushButton" name="addPriceButton">
            <property name="styleSheet">
             <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
            </property>
+           <property name="text">
+            <string>Fiyat Ekle</string>
+           </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="editPricingButton">
-           <property name="text">
-            <string>Düzenle</string>
-           </property>
+          <widget class="QPushButton" name="editPriceButton">
            <property name="styleSheet">
             <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
            </property>
+           <property name="text">
+            <string>Düzenle</string>
+           </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="deletePricingButton">
-           <property name="text">
-            <string>Sil</string>
-           </property>
+          <widget class="QPushButton" name="deletePriceButton">
            <property name="styleSheet">
             <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+           </property>
+           <property name="text">
+            <string>Sil</string>
            </property>
           </widget>
          </item>
@@ -249,11 +252,11 @@
       <layout class="QVBoxLayout" name="reportsLayout">
        <item>
         <widget class="QTableWidget" name="reportsTable">
-         <property name="columnCount">
-          <number>3</number>
-         </property>
          <property name="rowCount">
           <number>0</number>
+         </property>
+         <property name="columnCount">
+          <number>3</number>
          </property>
          <column>
           <property name="text">
@@ -311,11 +314,11 @@
        </item>
        <item row="3" column="1">
         <widget class="QPushButton" name="updateSettingsButton">
-         <property name="text">
-          <string>Güncelle</string>
-         </property>
          <property name="styleSheet">
           <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+         </property>
+         <property name="text">
+          <string>Güncelle</string>
          </property>
         </widget>
        </item>
@@ -325,11 +328,11 @@
    </item>
    <item>
     <widget class="QPushButton" name="logoutButton">
-     <property name="text">
-      <string>Çıkış Yap</string>
-     </property>
      <property name="styleSheet">
       <string>QPushButton { background-color: #B2BABB; color: #2E4053; border-radius: 12px; padding: 8px 0; font-size: 14px; margin: 16px 0 0 0; } QPushButton:hover { background-color: #85929E; }</string>
+     </property>
+     <property name="text">
+      <string>Çıkış Yap</string>
      </property>
     </widget>
    </item>
@@ -337,4 +340,4 @@
  </widget>
  <resources/>
  <connections/>
-</ui> 
+</ui>
