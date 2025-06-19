@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserDashboard</class>
+ <widget class="QWidget" name="UserDashboard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Kullanıcı Paneli</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QLabel" name="welcomeLabel">
+     <property name="text">
+      <string>Hoş Geldiniz, [Kullanıcı Adı]</string>
+     </property>
+     <property name="styleSheet">
+      <string>font-size: 20px; font-weight: bold; color: #2E4053; margin: 16px 0 8px 16px;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string>QTabBar::tab { min-width: 120px; min-height: 32px; font-size: 15px; border-radius: 8px; padding: 8px; } QTabBar::tab:selected { background: #2980B9; color: white; } QTabBar::tab:!selected { background: #F5F7FA; color: #2E4053; }</string>
+     </property>
+     <widget class="QWidget" name="profileTab">
+      <attribute name="title">
+       <string>Profil</string>
+      </attribute>
+      <layout class="QFormLayout" name="profileFormLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="profileNameLabel">
+         <property name="text">
+          <string>Ad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="profileNameEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="profileSurnameLabel">
+         <property name="text">
+          <string>Soyad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="profileSurnameEdit"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="profileEmailLabel">
+         <property name="text">
+          <string>E-posta:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="profileEmailEdit"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="profileUsernameLabel">
+         <property name="text">
+          <string>Kullanıcı Adı:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="profileUsernameEdit"/>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="updateProfileButton">
+         <property name="text">
+          <string>Güncelle</string>
+         </property>
+         <property name="styleSheet">
+          <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="reservationsTab">
+      <attribute name="title">
+       <string>Rezervasyonlarım</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="reservationsLayout">
+       <item>
+        <widget class="QTableWidget" name="reservationsTable">
+         <property name="columnCount">
+          <number>4</number>
+         </property>
+         <property name="rowCount">
+          <number>0</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Oda Tipi</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Giriş Tarihi</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Çıkış Tarihi</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fiyat</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="newReservationTab">
+      <attribute name="title">
+       <string>Yeni Rezervasyon</string>
+      </attribute>
+      <layout class="QFormLayout" name="newReservationFormLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="roomTypeLabel">
+         <property name="text">
+          <string>Oda Tipi:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="roomTypeComboBox"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="checkInLabel">
+         <property name="text">
+          <string>Giriş Tarihi:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDateEdit" name="checkInDateEdit">
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="checkOutLabel">
+         <property name="text">
+          <string>Çıkış Tarihi:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDateEdit" name="checkOutDateEdit">
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="guestCountLabel">
+         <property name="text">
+          <string>Kişi Sayısı:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="guestCountSpinBox">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="createReservationButton">
+         <property name="text">
+          <string>Rezervasyon Yap</string>
+         </property>
+         <property name="styleSheet">
+          <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="contactTab">
+      <attribute name="title">
+       <string>İletişim</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="contactLayout">
+       <item>
+        <widget class="QLabel" name="contactInfoLabel">
+         <property name="text">
+          <string>Otel ile iletişim için: 0123 456 78 90
+info@grandhotel.com</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignVCenter</set>
+         </property>
+         <property name="styleSheet">
+          <string>font-size: 15px; color: #34495E; margin: 32px;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="logoutButton">
+     <property name="text">
+      <string>Çıkış Yap</string>
+     </property>
+     <property name="styleSheet">
+      <string>QPushButton { background-color: #B2BABB; color: #2E4053; border-radius: 12px; padding: 8px 0; font-size: 14px; margin: 16px 0 0 0; } QPushButton:hover { background-color: #85929E; }</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui> 

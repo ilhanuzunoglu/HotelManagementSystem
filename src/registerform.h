@@ -1,0 +1,29 @@
+// registerform.h
+#ifndef REGISTERFORM_H
+#define REGISTERFORM_H
+
+#include <QWidget>
+
+namespace Ui { class RegisterForm; }
+
+class MainWindow;
+class LoginForm;
+
+class RegisterForm : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit RegisterForm(QWidget *parent = nullptr);
+    ~RegisterForm();
+
+private slots:
+    void on_registerButton_clicked();
+    void on_backButton_clicked();
+
+private:
+    Ui::RegisterForm *ui;
+    MainWindow* mainWindow;
+    LoginForm* loginForm;
+};
+
+#endif // REGISTERFORM_H 

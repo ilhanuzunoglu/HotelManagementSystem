@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminDashboard</class>
+ <widget class="QWidget" name="AdminDashboard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Admin Paneli</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QLabel" name="welcomeLabel">
+     <property name="text">
+      <string>Hoş Geldiniz, [Admin Adı]</string>
+     </property>
+     <property name="styleSheet">
+      <string>font-size: 20px; font-weight: bold; color: #2E4053; margin: 16px 0 8px 16px;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string>QTabBar::tab { min-width: 160px; min-height: 32px; font-size: 15px; border-radius: 8px; padding: 8px; } QTabBar::tab:selected { background: #2980B9; color: white; } QTabBar::tab:!selected { background: #F5F7FA; color: #2E4053; }</string>
+     </property>
+     <widget class="QWidget" name="userManagementTab">
+      <attribute name="title">
+       <string>Kullanıcı Yönetimi</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="userLayout">
+       <item>
+        <widget class="QTableWidget" name="userTable">
+         <property name="columnCount">
+          <number>5</number>
+         </property>
+         <property name="rowCount">
+          <number>0</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Ad</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Soyad</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>E-posta</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Rol</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Kullanıcı Adı</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="userButtonLayout">
+         <item>
+          <widget class="QPushButton" name="addUserButton">
+           <property name="text">
+            <string>Kullanıcı Ekle</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editUserButton">
+           <property name="text">
+            <string>Düzenle</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteUserButton">
+           <property name="text">
+            <string>Sil</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="roomManagementTab">
+      <attribute name="title">
+       <string>Oda Yönetimi</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="roomLayout">
+       <item>
+        <widget class="QTableWidget" name="roomTable">
+         <property name="columnCount">
+          <number>4</number>
+         </property>
+         <property name="rowCount">
+          <number>0</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Oda No</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Tip</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Kapasite</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Durum</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="roomButtonLayout">
+         <item>
+          <widget class="QPushButton" name="addRoomButton">
+           <property name="text">
+            <string>Oda Ekle</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editRoomButton">
+           <property name="text">
+            <string>Düzenle</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteRoomButton">
+           <property name="text">
+            <string>Sil</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pricingTab">
+      <attribute name="title">
+       <string>Fiyatlandırma</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="pricingLayout">
+       <item>
+        <widget class="QTableWidget" name="pricingTable">
+         <property name="columnCount">
+          <number>3</number>
+         </property>
+         <property name="rowCount">
+          <number>0</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Oda Tipi</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fiyat</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Dönem</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="pricingButtonLayout">
+         <item>
+          <widget class="QPushButton" name="addPricingButton">
+           <property name="text">
+            <string>Fiyat Ekle</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editPricingButton">
+           <property name="text">
+            <string>Düzenle</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deletePricingButton">
+           <property name="text">
+            <string>Sil</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { background-color: #E74C3C; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #85929E; }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="reportsTab">
+      <attribute name="title">
+       <string>Raporlar</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="reportsLayout">
+       <item>
+        <widget class="QTableWidget" name="reportsTable">
+         <property name="columnCount">
+          <number>3</number>
+         </property>
+         <property name="rowCount">
+          <number>0</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Rapor Tipi</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Tarih</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Detay</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settingsTab">
+      <attribute name="title">
+       <string>Sistem Ayarları</string>
+      </attribute>
+      <layout class="QFormLayout" name="settingsLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="hotelNameLabel">
+         <property name="text">
+          <string>Otel Adı:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="hotelNameEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="hotelAddressLabel">
+         <property name="text">
+          <string>Adres:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="hotelAddressEdit"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="hotelContactLabel">
+         <property name="text">
+          <string>İletişim:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="hotelContactEdit"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="updateSettingsButton">
+         <property name="text">
+          <string>Güncelle</string>
+         </property>
+         <property name="styleSheet">
+          <string>QPushButton { background-color: #27AE60; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #F39C12; }</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="logoutButton">
+     <property name="text">
+      <string>Çıkış Yap</string>
+     </property>
+     <property name="styleSheet">
+      <string>QPushButton { background-color: #B2BABB; color: #2E4053; border-radius: 12px; padding: 8px 0; font-size: 14px; margin: 16px 0 0 0; } QPushButton:hover { background-color: #85929E; }</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui> 
