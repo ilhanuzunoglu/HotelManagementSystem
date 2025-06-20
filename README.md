@@ -30,7 +30,7 @@
 
 1. **Gereksinimler:**
    - C++ derleyicisi (GCC, MSVC veya MinGW)
-   - Qt Framework (Qt 5.x veya üzeri önerilir)
+   - Qt Framework (Qt 5.x önerilir)
 2. **Projeyi Klonlayın:**
    ```sh
    git clone https://github.com/ilhanuzunoglu/HotelManagementSystem.git
