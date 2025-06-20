@@ -1,24 +1,38 @@
 # Hotel Management System
 
-## Proje Hakkında
-Hotel Management System, otel yönetimi süreçlerini dijitalleştirerek kolaylaştırmak amacıyla geliştirilmiş bir masaüstü uygulamasıdır. Bu proje, otel çalışanlarının ve yöneticilerinin rezervasyon, müşteri takibi, oda yönetimi ve kullanıcı yönetimi gibi işlemleri hızlı ve güvenli bir şekilde gerçekleştirmesini sağlar. Kullanıcı dostu arayüzü ve modüler yapısı ile farklı kullanıcı tiplerine (yönetici, resepsiyonist, müşteri) özel paneller sunar.
+## Hakkında
 
-## Özellikler
-- Kullanıcı kayıt ve giriş sistemi
-- Yönetici, resepsiyonist ve müşteri panelleri
-- Oda ekleme, silme ve güncelleme
-- Rezervasyon oluşturma ve yönetme
-- Müşteri bilgilerini görüntüleme ve düzenleme
-- Kullanıcı yetkilendirme ve rol tabanlı erişim
-- Basit ve anlaşılır arayüz (Qt Designer ile tasarlanmış)
-- Dosya tabanlı veri saklama (örnek: users.txt)
+**Hotel Management System**, otel yönetimini dijitalleştirerek modern ve kullanıcı dostu bir masaüstü uygulama sunar. Yönetici, resepsiyonist ve müşteri gibi farklı kullanıcı tiplerine özel panellerle, otel operasyonlarını hızlı, güvenli ve verimli şekilde yönetmenizi sağlar. Proje, C++ ve Qt Framework kullanılarak geliştirilmiştir ve dosya tabanlı veri saklama ile kolay kurulum ve kullanım imkanı sunar.
+
+---
+
+## Başlıca Özellikler
+
+- **Kullanıcı Kayıt ve Giriş Sistemi**: Güvenli kullanıcı doğrulama ve yeni kullanıcı kaydı.
+- **Rol Tabanlı Paneller**: Yönetici, resepsiyonist ve müşteri için ayrı arayüzler ve yetkiler.
+- **Oda Yönetimi**: Oda ekleme, silme, güncelleme ve durum takibi.
+- **Rezervasyon Yönetimi**: Hızlı rezervasyon oluşturma, güncelleme ve iptal işlemleri.
+- **Müşteri Takibi**: Müşteri bilgilerini görüntüleme ve düzenleme.
+- **Kullanıcı Yetkilendirme**: Her kullanıcıya rolüne göre erişim izni.
+- **Modern ve Basit Arayüz**: Qt Designer ile tasarlanmış, sezgisel ve şık kullanıcı arayüzü.
+- **Dosya Tabanlı Veri Saklama**: Veriler (ör. kullanıcılar) kolayca taşınabilir ve yedeklenebilir.
+- **Kolay Kurulum**: Ekstra veritabanı gerektirmez, doğrudan çalıştırılabilir.
+
+---
+
+## Ekran Görüntüleri
+
+> **Not:** Ekran görüntüleri ve demo videoları için yakında güncelleme yapılacaktır.
+
+---
 
 ## Kurulum ve Çalıştırma
+
 1. **Gereksinimler:**
-   - C++ derleyicisi (ör. GCC, MSVC)
-   - Qt Framework (önerilen: Qt 5.x veya üzeri)
+   - C++ derleyicisi (GCC, MSVC veya MinGW)
+   - Qt Framework (Qt 5.x veya üzeri önerilir)
 2. **Projeyi Klonlayın:**
-   ```
+   ```sh
    git clone https://github.com/ilhanuzunoglu/HotelManagementSystem.git
    ```
 3. **Projeyi Açın:**
@@ -26,18 +40,35 @@ Hotel Management System, otel yönetimi süreçlerini dijitalleştirerek kolayla
 4. **Derleyin ve Çalıştırın:**
    - Projeyi derleyip çalıştırın.
 
+---
+
 ## Kullanılan Teknolojiler
-- C++
-- Qt Framework (Qt Widgets, Qt Designer)
-- QMake
 
-## Geliştirici
-- GitHub: [ilhanuzunoglu](https://github.com/ilhanuzunoglu)
-- E-posta: ilhanuzunoglu02@gmail.com
-
-## Lisans
-Bu proje MIT lisansı ile lisanslanmıştır. Detaylar için LICENSE dosyasına bakınız.
+- **C++**: Yüksek performanslı uygulama geliştirme.
+- **Qt Framework**: Modern arayüzler ve çapraz platform desteği.
+- **QMake**: Proje yapılandırma ve derleme yönetimi.
+- **Dosya Tabanlı Veri Saklama**: Kolay veri yönetimi için düz metin dosyaları.
 
 ---
 
-> **Not:** Proje aktif olarak geliştirilmeye devam etmektedir. Yeni özellikler ve iyileştirmeler için güncellemeleri takip edebilirsiniz. 
+## Katkı ve Geliştirme
+
+Projeye katkıda bulunmak isterseniz, lütfen fork'layıp pull request gönderin veya issue açın. Her türlü öneri ve geri bildirime açığım!
+
+---
+
+## İletişim
+
+- **Geliştirici:** ilhanuzunoglu
+- **E-posta:** ilhanuzunoglu02@gmail.com
+- **GitHub:** [ilhanuzunoglu](https://github.com/ilhanuzunoglu)
+
+---
+
+## Lisans
+
+Bu proje MIT lisansı ile lisanslanmıştır. Detaylar için LICENSE dosyasına bakabilirsiniz.
+
+---
+
+> **Not:** Proje aktif olarak geliştirilmektedir. Yeni özellikler ve iyileştirmeler için güncellemeleri takip edebilirsiniz. 
