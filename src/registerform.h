@@ -4,6 +4,7 @@
 
 #include <QWidget>
 #include "database.h"
+#include <QLineEdit>
 
 namespace Ui { class RegisterForm; }
 
@@ -30,6 +31,7 @@ private:
     Ui::RegisterForm *ui;
     MainWindow* mainWindow;
     LoginForm* loginForm;
+    QLineEdit* phoneLineEdit;
 };
 
 #endif // REGISTERFORM_H 

@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QSqlQuery>
 #include <QInputDialog>
+#include "invoicedialog.h"
+#include "usereditdialog.h"
 
 ReceptionistDashboard::ReceptionistDashboard(QWidget *parent)
     : QWidget(parent), ui(new Ui::ReceptionistDashboard), mainWindow(nullptr)
@@ -22,6 +24,13 @@ ReceptionistDashboard::ReceptionistDashboard(QWidget *parent)
     connect(ui->editGuestButton, &QPushButton::clicked, this, &ReceptionistDashboard::on_editGuestButton_clicked);
     connect(ui->deleteGuestButton, &QPushButton::clicked, this, &ReceptionistDashboard::on_deleteGuestButton_clicked);
     connect(ui->updateRoomStatusButton, &QPushButton::clicked, this, &ReceptionistDashboard::on_updateRoomStatusButton_clicked);
+    connect(ui->tabWidget, &QTabWidget::currentChanged, this, [this](int idx) {
+        if (ui->tabWidget->widget(idx)->objectName() == "roomStatusTab")
+            on_roomStatusTab_selected();
+        if (ui->tabWidget->widget(idx)->objectName() == "billingTab")
+            populateBillingTable();
+    });
+    connect(ui->processPaymentButton, &QPushButton::clicked, this, &ReceptionistDashboard::on_processPaymentButton_clicked);
 }
 
 ReceptionistDashboard::~ReceptionistDashboard() { delete ui; }
@@ -181,20 +190,22 @@ void ReceptionistDashboard::on_guestManagementTab_selected()
 
 void ReceptionistDashboard::on_addGuestButton_clicked() {
     ui->addGuestButton->setEnabled(false);
+    UserEditDialog dialog(this);
+    dialog.setRoleSelectionVisible(false);
     User user;
-    user.username = QInputDialog::getText(this, "Kullanıcı Adı", "Kullanıcı Adı:");
-    if (user.username.isEmpty()) { ui->addGuestButton->setEnabled(true); return; }
-    user.password = QInputDialog::getText(this, "Şifre", "Şifre:");
     user.role = "user";
-    user.name = QInputDialog::getText(this, "Ad", "Ad:");
-    user.surname = QInputDialog::getText(this, "Soyad", "Soyad:");
-    user.email = QInputDialog::getText(this, "E-posta", "E-posta:");
-    QString errorMsg;
-    if (Database::instance().addUser(user, errorMsg)) {
-        QMessageBox::information(this, "Başarılı", "Kullanıcı eklendi.");
-        populateGuestTable();
-    } else {
-        QMessageBox::warning(this, "Hata", errorMsg);
+    dialog.setUser(user);
+    dialog.setEditMode(false);
+    if (dialog.exec() == QDialog::Accepted) {
+        User newUser = dialog.getUser();
+        newUser.role = "user";
+        QString errorMsg;
+        if (Database::instance().addUser(newUser, errorMsg)) {
+            QMessageBox::information(this, "Başarılı", "Kullanıcı eklendi.");
+            populateGuestTable();
+        } else {
+            QMessageBox::warning(this, "Hata", errorMsg);
+        }
     }
     ui->addGuestButton->setEnabled(true);
 }
@@ -205,16 +216,20 @@ void ReceptionistDashboard::on_editGuestButton_clicked() {
     if (row < 0) { ui->editGuestButton->setEnabled(true); return; }
     QString username = ui->guestTable->item(row, 3)->text();
     User user = Database::instance().getUser(username);
-    user.name = QInputDialog::getText(this, "Ad", "Ad:", QLineEdit::Normal, user.name);
-    user.surname = QInputDialog::getText(this, "Soyad", "Soyad:", QLineEdit::Normal, user.surname);
-    user.email = QInputDialog::getText(this, "E-posta", "E-posta:", QLineEdit::Normal, user.email);
-    user.password = QInputDialog::getText(this, "Şifre", "Şifre:", QLineEdit::Normal, user.password);
-    QString errorMsg;
-    if (Database::instance().editUser(user, errorMsg)) {
-        QMessageBox::information(this, "Başarılı", "Kullanıcı güncellendi.");
-        populateGuestTable();
-    } else {
-        QMessageBox::warning(this, "Hata", errorMsg);
+    UserEditDialog dialog(this);
+    dialog.setRoleSelectionVisible(false);
+    dialog.setUser(user);
+    dialog.setEditMode(true);
+    if (dialog.exec() == QDialog::Accepted) {
+        User updated = dialog.getUser();
+        updated.role = "user";
+        QString errorMsg;
+        if (Database::instance().editUser(updated, errorMsg)) {
+            QMessageBox::information(this, "Başarılı", "Kullanıcı güncellendi.");
+            populateGuestTable();
+        } else {
+            QMessageBox::warning(this, "Hata", errorMsg);
+        }
     }
     ui->editGuestButton->setEnabled(true);
 }
@@ -256,4 +271,40 @@ void ReceptionistDashboard::on_updateRoomStatusButton_clicked() {
     } else {
         QMessageBox::warning(this, "Hata", errorMsg);
     }
+}
+
+void ReceptionistDashboard::populateBillingTable()
+{
+    QList<Reservation> reservations = Database::instance().getAllReservations();
+    ui->billingTable->setRowCount(0);
+    for (const Reservation& r : reservations) {
+        if (r.payment_status == "paid") {
+            int row = ui->billingTable->rowCount();
+            ui->billingTable->insertRow(row);
+            ui->billingTable->setItem(row, 0, new QTableWidgetItem(r.username));
+            ui->billingTable->setItem(row, 1, new QTableWidgetItem(QString::number(r.room_no)));
+            ui->billingTable->setItem(row, 2, new QTableWidgetItem(QString::number(r.price, 'f', 2)));
+            ui->billingTable->setItem(row, 3, new QTableWidgetItem(r.status));
+        }
+    }
+    ui->billingTable->resizeColumnsToContents();
+}
+
+void ReceptionistDashboard::on_processPaymentButton_clicked()
+{
+    int row = ui->billingTable->currentRow();
+    if (row < 0) return;
+    int room_no = ui->billingTable->item(row, 1)->text().toInt();
+    double price = ui->billingTable->item(row, 2)->text().toDouble();
+    QString username = ui->billingTable->item(row, 0)->text();
+    QList<Reservation> reservations = Database::instance().getAllReservations();
+    Reservation selected;
+    for (const Reservation& r : reservations) {
+        if (r.username == username && r.room_no == room_no && r.price == price) {
+            selected = r;
+            break;
+        }
+    }
+    InvoiceDialog dialog(selected, this);
+    dialog.exec();
 } 

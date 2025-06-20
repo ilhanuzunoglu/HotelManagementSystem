@@ -60,17 +60,34 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="passwordLineEdit">
-        <property name="placeholderText">
-         <string>Şifre</string>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
-        </property>
-        <property name="styleSheet">
-         <string>padding-left: 32px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 16px;</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="passwordLayout">
+        <item>
+         <widget class="QLineEdit" name="passwordLineEdit">
+          <property name="placeholderText">
+           <string>Şifre</string>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+          <property name="styleSheet">
+           <string>padding-left: 32px; height: 32px; border-radius: 12px; border: 1px solid #B2BABB; font-size: 16px; margin-bottom: 16px;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="showPasswordButton">
+          <property name="text">
+           <string>👁️</string>
+          </property>
+          <property name="toolTip">
+           <string>Şifreyi Göster/Gizle</string>
+          </property>
+          <property name="maximumWidth">
+           <number>32</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QLabel" name="errorLabel">

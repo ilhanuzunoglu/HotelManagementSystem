@@ -34,6 +34,8 @@ private slots:
     void on_editGuestButton_clicked();
     void on_deleteGuestButton_clicked();
     void on_updateRoomStatusButton_clicked();
+    void populateBillingTable();
+    void on_processPaymentButton_clicked();
 
 private:
     void populateReservationTable();

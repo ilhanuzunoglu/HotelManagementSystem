@@ -41,6 +41,7 @@ void MainWindow::showLoginForm()
         connect(loginForm, &LoginForm::registerLinkClicked, this, &MainWindow::showRegisterForm);
         connect(loginForm, &LoginForm::backClicked, this, &MainWindow::handleBackToMain);
     }
+    loginForm->clearFields();
     loginForm->show();
     this->hide();
 }
@@ -107,6 +108,7 @@ void MainWindow::handleLogout()
     if (userDashboard) userDashboard->hide();
     if (receptionistDashboard) receptionistDashboard->hide();
     if (adminDashboard) adminDashboard->hide();
+    if (loginForm) loginForm->clearFields();
     this->show();
 }
 

@@ -24,23 +24,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    src/admindashboard.cpp \
+    src/database.cpp \
+    src/loginform.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/loginform.cpp \
-    src/registerform.cpp \
-    src/userdashboard.cpp \
     src/receptionistdashboard.cpp \
-    src/admindashboard.cpp \
-    src/database.cpp
+    src/registerform.cpp \
+    src/roomeditdialog.cpp \
+    src/userdashboard.cpp \
+    src/usereditdialog.cpp \
+    src/invoicedialog.cpp
 
 HEADERS += \
-    src/mainwindow.h \
-    src/loginform.h \
-    src/registerform.h \
-    src/userdashboard.h \
-    src/receptionistdashboard.h \
     src/admindashboard.h \
-    src/database.h
+    src/database.h \
+    src/loginform.h \
+    src/mainwindow.h \
+    src/receptionistdashboard.h \
+    src/registerform.h \
+    src/roomeditdialog.h \
+    src/userdashboard.h \
+    src/usereditdialog.h \
+    src/invoicedialog.h
 
 FORMS += \
     ui/mainwindow.ui \

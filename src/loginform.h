@@ -16,6 +16,7 @@ public:
     explicit LoginForm(QWidget *parent = nullptr);
     ~LoginForm();
     void setMainWindow(MainWindow* mw);
+    void clearFields();
 
 signals:
     void loginSuccess(const User& user);
@@ -26,6 +27,7 @@ private slots:
     void on_loginButton_clicked();
     void on_registerLinkButton_clicked();
     void on_backButton_clicked();
+    void on_showPasswordButton_clicked();
 
 private:
     Ui::LoginForm *ui;

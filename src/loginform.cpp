@@ -15,6 +15,8 @@ LoginForm::LoginForm(QWidget *parent)
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginForm::on_loginButton_clicked);
     connect(ui->registerLinkButton, &QPushButton::clicked, this, &LoginForm::on_registerLinkButton_clicked);
     connect(ui->backButton, &QPushButton::clicked, this, &LoginForm::on_backButton_clicked);
+    ui->showPasswordButton->setCheckable(true);
+    connect(ui->showPasswordButton, &QPushButton::clicked, this, &LoginForm::on_showPasswordButton_clicked);
 }
 
 LoginForm::~LoginForm() { delete ui; }
@@ -43,4 +45,21 @@ void LoginForm::on_registerLinkButton_clicked()
 void LoginForm::on_backButton_clicked()
 {
     emit backClicked();
+}
+
+void LoginForm::on_showPasswordButton_clicked()
+{
+    if (ui->showPasswordButton->isChecked()) {
+        ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
+    } else {
+        ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
+    }
+    ui->passwordLineEdit->setFocus();
+}
+
+void LoginForm::clearFields()
+{
+    ui->usernameLineEdit->clear();
+    ui->passwordLineEdit->clear();
+    if (ui->errorLabel) ui->errorLabel->clear();
 } 

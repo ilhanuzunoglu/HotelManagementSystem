@@ -126,6 +126,41 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="roomInfoTab">
+      <attribute name="title">
+       <string>Odalar</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="roomInfoLayout">
+       <item>
+        <widget class="QTableWidget" name="roomInfoTable">
+         <property name="columnCount">
+          <number>3</number>
+         </property>
+         <property name="rowCount">
+          <number>3</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Oda Tipi</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Açıklama</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fiyat (TL)</string>
+          </property>
+         </column>
+         <row/>
+         <row/>
+         <row/>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="newReservationTab">
       <attribute name="title">
        <string>Yeni Rezervasyon</string>
@@ -180,29 +215,91 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="guestCountLabel">
+        <widget class="QLabel" name="adultCountLabel">
          <property name="text">
-          <string>Kişi Sayısı:</string>
+          <string>Yetişkin Sayısı:</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QSpinBox" name="guestCountSpinBox">
+        <widget class="QSpinBox" name="adultCountSpinBox">
          <property name="minimum">
           <number>1</number>
          </property>
          <property name="maximum">
-          <number>10</number>
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="childCountLabel">
+         <property name="text">
+          <string>Çocuk Sayısı:</string>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
+        <widget class="QSpinBox" name="childCountSpinBox">
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>2</number>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
         <widget class="QPushButton" name="createReservationButton">
          <property name="styleSheet">
           <string>QPushButton { background-color: #2980B9; color: white; border-radius: 10px; padding: 6px 24px; font-size: 14px; font-weight: bold; } QPushButton:hover { background-color: #1ABC9C; }</string>
          </property>
          <property name="text">
           <string>Rezervasyon Yap</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="cardNumberLabel">
+         <property name="text">
+          <string>Kart Numarası:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="cardNumberEdit">
+         <property name="placeholderText">
+          <string>1234 5678 9012 3456</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="cardExpiryLabel">
+         <property name="text">
+          <string>Son Kullanma (AA/YY):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="cardExpiryEdit">
+         <property name="placeholderText">
+          <string>AA/YY</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="cardCvvLabel">
+         <property name="text">
+          <string>CVV:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="cardCvvEdit">
+         <property name="placeholderText">
+          <string>123</string>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>

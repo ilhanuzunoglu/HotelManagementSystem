@@ -4,6 +4,7 @@
 
 #include <QWidget>
 #include "database.h"
+#include <QLineEdit>
 
 namespace Ui { class UserDashboard; }
 class MainWindow;
@@ -24,6 +25,7 @@ private slots:
     void on_createReservationButton_clicked();
     void on_tabWidget_currentChanged(int index);
     void on_roomTypeOrDateChanged();
+    void on_updateProfileButton_clicked();
 
 private:
     void populateReservationsTable();
@@ -31,9 +33,11 @@ private:
     void updateAvailableRooms();
     void populateAvailableRoomNumbers();
     void clearNewReservationForm();
+    void populateRoomInfoTab();
     Ui::UserDashboard *ui;
     MainWindow* mainWindow;
     User currentUser;
+    QLineEdit* profilePhoneEdit;
 };
 
 #endif // USERDASHBOARD_H 

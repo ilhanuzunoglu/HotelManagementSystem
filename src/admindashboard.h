@@ -31,14 +31,15 @@ private slots:
     void on_addRoomButton_clicked();
     void on_editRoomButton_clicked();
     void on_deleteRoomButton_clicked();
-    void on_addPriceButton_clicked();
+    void on_updateSettingsButton_clicked();
     void on_editPriceButton_clicked();
-    void on_deletePriceButton_clicked();
+    void on_pricingTable_itemSelectionChanged();
 
 private:
     void populateRoomTable();
     void populateUserTable();
     void populatePricingTable();
+    void loadSettingsToUI();
     Ui::AdminDashboard *ui;
     MainWindow* mainWindow;
     User currentUser;

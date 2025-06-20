@@ -32,8 +32,11 @@ void Database::ensureTablesAndDefaults() {
                "role TEXT NOT NULL,"
                "name TEXT,"
                "surname TEXT,"
-               "email TEXT"
+               "email TEXT,"
+               "phone TEXT"
                ")");
+    // Migration: phone alanı ekle
+    query.exec("ALTER TABLE users ADD COLUMN phone TEXT");
     // Eğer hiç kullanıcı yoksa, varsayılanları ekle
     query.exec("SELECT COUNT(*) FROM users");
     if (query.next() && query.value(0).toInt() == 0) {
@@ -54,15 +57,36 @@ void Database::ensureTablesAndDefaults() {
                "status TEXT,"
                "created_at TEXT"
                ")");
+    // Migration: adult_count ve child_count ekle
+    query.exec("ALTER TABLE reservations ADD COLUMN adult_count INTEGER");
+    query.exec("ALTER TABLE reservations ADD COLUMN child_count INTEGER");
     // Fiyatlandırma tablosu
     query.exec("CREATE TABLE IF NOT EXISTS prices ("
                "room_type TEXT PRIMARY KEY,"
                "price REAL"
                ")");
+    // Migration: price alanı ekle
+    query.exec("ALTER TABLE reservations ADD COLUMN price REAL");
+    // Migration: kredi kartı ve ödeme durumu alanları
+    query.exec("ALTER TABLE reservations ADD COLUMN card_number TEXT");
+    query.exec("ALTER TABLE reservations ADD COLUMN card_expiry TEXT");
+    query.exec("ALTER TABLE reservations ADD COLUMN card_cvv TEXT");
+    query.exec("ALTER TABLE reservations ADD COLUMN payment_status TEXT");
     // Kaç kullanıcı var?
     query.exec("SELECT COUNT(*) FROM users");
     if (query.next()) {
         qDebug() << "Yüklenen kullanıcı sayısı (SQL):" << query.value(0).toInt();
+    }
+    // Settings tablosu
+    query.exec("CREATE TABLE IF NOT EXISTS settings (hotel_name TEXT, hotel_address TEXT, hotel_contact TEXT)");
+    query.exec("SELECT COUNT(*) FROM settings");
+    if (query.next() && query.value(0).toInt() == 0) {
+        QSqlQuery insert;
+        insert.prepare("INSERT INTO settings (hotel_name, hotel_address, hotel_contact) VALUES (?, ?, ?)");
+        insert.addBindValue("Grand Hotel");
+        insert.addBindValue("Adres girilmedi");
+        insert.addBindValue("0123 456 78 90");
+        insert.exec();
     }
 }
 
@@ -141,7 +165,7 @@ bool Database::isRoomAvailable(int room_no, const QString& checkin, const QStrin
     return false;
 }
 
-bool Database::addReservation(const QString& username, int room_no, const QString& checkin, const QString& checkout, QString& errorMsg) {
+bool Database::addReservation(const QString& username, int room_no, const QString& checkin, const QString& checkout, int adult_count, int child_count, double price, const QString& card_number, const QString& card_expiry, const QString& card_cvv, QString& errorMsg) {
     // Tarih kontrolü
     QDate today = QDate::currentDate();
     QDate d_checkin = QDate::fromString(checkin, "yyyy-MM-dd");
@@ -154,13 +178,35 @@ bool Database::addReservation(const QString& username, int room_no, const QStrin
         errorMsg = "Oda bu tarihlerde müsait değil.";
         return false;
     }
+    // Oda tipine göre kişi kısıtı
+    QSqlQuery roomQuery;
+    roomQuery.prepare("SELECT type FROM rooms WHERE room_no = ?");
+    roomQuery.addBindValue(room_no);
+    if (!roomQuery.exec() || !roomQuery.next()) {
+        errorMsg = "Oda tipi bulunamadı.";
+        return false;
+    }
+    QString type = roomQuery.value(0).toString();
+    int max_adult = 2, max_child = 1;
+    if (type == "suit") { max_adult = 3; max_child = 2; }
+    else if (type == "deluxe") { max_adult = 4; max_child = 2; }
+    if (adult_count < 1 || adult_count > max_adult || child_count < 0 || child_count > max_child) {
+        errorMsg = QString("Bu oda için maksimum %1 yetişkin ve %2 çocuk kalabilir.").arg(max_adult).arg(max_child);
+        return false;
+    }
     QSqlQuery insert;
-    insert.prepare("INSERT INTO reservations (username, room_no, checkin, checkout, status, created_at) VALUES (?, ?, ?, ?, 'pending', ?)");
+    insert.prepare("INSERT INTO reservations (username, room_no, checkin, checkout, status, created_at, adult_count, child_count, price, card_number, card_expiry, card_cvv, payment_status) VALUES (?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, 'paid')");
     insert.addBindValue(username);
     insert.addBindValue(room_no);
     insert.addBindValue(checkin);
     insert.addBindValue(checkout);
     insert.addBindValue(QDate::currentDate().toString("yyyy-MM-dd"));
+    insert.addBindValue(adult_count);
+    insert.addBindValue(child_count);
+    insert.addBindValue(price);
+    insert.addBindValue(card_number);
+    insert.addBindValue(card_expiry);
+    insert.addBindValue(card_cvv);
     if (!insert.exec()) {
         errorMsg = "Rezervasyon eklenemedi: " + insert.lastError().text();
         return false;
@@ -176,7 +222,7 @@ bool Database::addReservation(const QString& username, int room_no, const QStrin
 QList<Reservation> Database::getUserReservations(const QString& username) {
     QList<Reservation> list;
     QSqlQuery query;
-    query.prepare("SELECT id, username, room_no, checkin, checkout, status, created_at FROM reservations WHERE username = ? ORDER BY checkin DESC");
+    query.prepare("SELECT id, username, room_no, checkin, checkout, status, created_at, adult_count, child_count, price, card_number, card_expiry, card_cvv, payment_status FROM reservations WHERE username = ? ORDER BY checkin DESC");
     query.addBindValue(username);
     if (query.exec()) {
         while (query.next()) {
@@ -188,6 +234,13 @@ QList<Reservation> Database::getUserReservations(const QString& username) {
             r.checkout = query.value(4).toString();
             r.status = query.value(5).toString();
             r.created_at = query.value(6).toString();
+            r.adult_count = query.value(7).toInt();
+            r.child_count = query.value(8).toInt();
+            r.price = query.value(9).toDouble();
+            r.card_number = query.value(10).toString();
+            r.card_expiry = query.value(11).toString();
+            r.card_cvv = query.value(12).toString();
+            r.payment_status = query.value(13).toString();
             list.append(r);
         }
     }
@@ -196,7 +249,7 @@ QList<Reservation> Database::getUserReservations(const QString& username) {
 
 QList<Reservation> Database::getAllReservations() {
     QList<Reservation> list;
-    QSqlQuery query("SELECT id, username, room_no, checkin, checkout, status, created_at FROM reservations ORDER BY checkin DESC");
+    QSqlQuery query("SELECT id, username, room_no, checkin, checkout, status, created_at, adult_count, child_count, price, card_number, card_expiry, card_cvv, payment_status FROM reservations ORDER BY checkin DESC");
     while (query.next()) {
         Reservation r;
         r.id = query.value(0).toInt();
@@ -206,6 +259,13 @@ QList<Reservation> Database::getAllReservations() {
         r.checkout = query.value(4).toString();
         r.status = query.value(5).toString();
         r.created_at = query.value(6).toString();
+        r.adult_count = query.value(7).toInt();
+        r.child_count = query.value(8).toInt();
+        r.price = query.value(9).toDouble();
+        r.card_number = query.value(10).toString();
+        r.card_expiry = query.value(11).toString();
+        r.card_cvv = query.value(12).toString();
+        r.payment_status = query.value(13).toString();
         list.append(r);
     }
     return list;
@@ -240,7 +300,7 @@ bool Database::updateReservationStatus(int reservation_id, const QString& new_st
 
 User Database::authenticateUser(const QString& username, const QString& password) {
     QSqlQuery query;
-    query.prepare("SELECT username, password, role, name, surname, email FROM users WHERE username = ? AND password = ?");
+    query.prepare("SELECT username, password, role, name, surname, email, phone FROM users WHERE username = ? AND password = ?");
     query.addBindValue(username);
     query.addBindValue(password);
     if (query.exec() && query.next()) {
@@ -251,12 +311,13 @@ User Database::authenticateUser(const QString& username, const QString& password
         user.name = query.value(3).toString();
         user.surname = query.value(4).toString();
         user.email = query.value(5).toString();
+        user.phone = query.value(6).toString();
         return user;
     }
     return User();
 }
 
-bool Database::registerUser(const QString& name, const QString& surname, const QString& username, const QString& email, const QString& password, QString& errorMsg) {
+bool Database::registerUser(const QString& name, const QString& surname, const QString& username, const QString& email, const QString& phone, const QString& password, QString& errorMsg) {
     QSqlQuery check;
     check.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
     check.addBindValue(username);
@@ -265,13 +326,14 @@ bool Database::registerUser(const QString& name, const QString& surname, const Q
         return false;
     }
     QSqlQuery insert;
-    insert.prepare("INSERT INTO users (username, password, role, name, surname, email) VALUES (?, ?, ?, ?, ?, ?)");
+    insert.prepare("INSERT INTO users (username, password, role, name, surname, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
     insert.addBindValue(username);
     insert.addBindValue(password);
     insert.addBindValue("user");
     insert.addBindValue(name);
     insert.addBindValue(surname);
     insert.addBindValue(email);
+    insert.addBindValue(phone);
     if (!insert.exec()) {
         errorMsg = "Kayıt başarısız: " + insert.lastError().text();
         return false;
@@ -281,7 +343,7 @@ bool Database::registerUser(const QString& name, const QString& surname, const Q
 
 User Database::getUser(const QString& username) {
     QSqlQuery query;
-    query.prepare("SELECT username, password, role, name, surname, email FROM users WHERE username = ?");
+    query.prepare("SELECT username, password, role, name, surname, email, phone FROM users WHERE username = ?");
     query.addBindValue(username);
     if (query.exec() && query.next()) {
         User user;
@@ -291,6 +353,7 @@ User Database::getUser(const QString& username) {
         user.name = query.value(3).toString();
         user.surname = query.value(4).toString();
         user.email = query.value(5).toString();
+        user.phone = query.value(6).toString();
         return user;
     }
     return User();
@@ -305,13 +368,14 @@ bool Database::addUser(const User& user, QString& errorMsg) {
         return false;
     }
     QSqlQuery insert;
-    insert.prepare("INSERT INTO users (username, password, role, name, surname, email) VALUES (?, ?, ?, ?, ?, ?)");
+    insert.prepare("INSERT INTO users (username, password, role, name, surname, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
     insert.addBindValue(user.username);
     insert.addBindValue(user.password);
     insert.addBindValue(user.role);
     insert.addBindValue(user.name);
     insert.addBindValue(user.surname);
     insert.addBindValue(user.email);
+    insert.addBindValue(user.phone);
     if (!insert.exec()) {
         errorMsg = "Kullanıcı eklenemedi: " + insert.lastError().text();
         return false;
@@ -321,12 +385,13 @@ bool Database::addUser(const User& user, QString& errorMsg) {
 
 bool Database::editUser(const User& user, QString& errorMsg) {
     QSqlQuery update;
-    update.prepare("UPDATE users SET password=?, role=?, name=?, surname=?, email=? WHERE username=?");
+    update.prepare("UPDATE users SET password=?, role=?, name=?, surname=?, email=?, phone=? WHERE username=?");
     update.addBindValue(user.password);
     update.addBindValue(user.role);
     update.addBindValue(user.name);
     update.addBindValue(user.surname);
     update.addBindValue(user.email);
+    update.addBindValue(user.phone);
     update.addBindValue(user.username);
     if (!update.exec()) {
         errorMsg = "Kullanıcı güncellenemedi: " + update.lastError().text();
@@ -444,4 +509,41 @@ QList<Price> Database::getAllPrices() {
         prices.append(p);
     }
     return prices;
+}
+
+double Database::getPriceForRoomType(const QString& room_type) {
+    QSqlQuery query;
+    query.prepare("SELECT price FROM prices WHERE room_type = ?");
+    query.addBindValue(room_type);
+    if (query.exec() && query.next()) {
+        return query.value(0).toDouble();
+    }
+    return 0.0;
+}
+
+double Database::getDefaultPriceForRoomType(const QString& room_type) {
+    if (room_type == "standart") return 1750;
+    if (room_type == "suit") return 2350;
+    if (room_type == "deluxe") return 4999;
+    return 0.0;
+}
+
+Settings Database::getSettings() {
+    Settings s;
+    QSqlQuery query("SELECT hotel_name, hotel_address, hotel_contact FROM settings LIMIT 1");
+    if (query.exec() && query.next()) {
+        s.hotel_name = query.value(0).toString();
+        s.hotel_address = query.value(1).toString();
+        s.hotel_contact = query.value(2).toString();
+    }
+    return s;
+}
+
+bool Database::updateSettings(const Settings& settings) {
+    QSqlQuery query;
+    query.prepare("UPDATE settings SET hotel_name=?, hotel_address=?, hotel_contact=?");
+    query.addBindValue(settings.hotel_name);
+    query.addBindValue(settings.hotel_address);
+    query.addBindValue(settings.hotel_contact);
+    return query.exec();
 } 
